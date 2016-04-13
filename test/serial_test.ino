@@ -4,6 +4,7 @@
 char replybuffer[255];
 
 SoftwareSerial ss = SoftwareSerial(GPRS_TX, GPRS_RX);
+SoftwareSerial *serial = &ss;
 
 uint8_t readline(char *buff, uint8_t maxbuff, uint16_t timeout = 0);
 
@@ -14,7 +15,7 @@ void setup() {
 
   Serial.begin(115200);
   Serial.println(F("Testing basic GPRS"));
-  ss->begin(9600);
+  serial->begin(9600);
 
   mainMenu();
     
@@ -33,6 +34,7 @@ void mainMenu(){
   Serial.println(F("[S] create Serial passthru tunnel"));
   Serial.println(F("-------------------------------------"));
   Serial.println(F(""));
+}
 
 void loop(){
   while (!Serial.available()) {
@@ -48,4 +50,5 @@ void loop(){
       }
     case 'G': {
       }
+  }
 }
