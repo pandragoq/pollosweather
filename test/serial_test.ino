@@ -50,5 +50,17 @@ void loop(){
       }
     case 'G': {
       }
+    case 'S': {
+      Serial.println(F("Creating SERIAL TUBE"));
+        while (1) {
+          while (Serial.available()) {
+            delay(1);
+            serial->write(Serial.read());
+          }
+          if (serial->available()) {
+            Serial.write(serial->read());
+          }
+        }
+      }
   }
 }
