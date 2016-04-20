@@ -7,7 +7,7 @@ GSMClient client;
 String oktext = "OK";
 String errortext = "ERROR";
 
-char apn[20] = "TELEFONICA";
+char apn[20] = "movistar.es";
 char user[20] = "MOVISTAR";
 char pass[20] = "MOVISTAR";
 
@@ -17,15 +17,23 @@ String response = "";
 
 void setup() {
   Serial.begin(57600);
-  
+}
+
+void loop() {  
   if (gsmAccess.begin() != GSM_READY) {
+    Serial.println("Error connecting to GSM");
     Serial.println(errortext);
-    while (true);
+    while(true);
+  } else {
+    Serial.println("Connected to GSM");
+    Serial.println(oktext);
   }
   Serial.println(oktext); 
   if (gprsAccess.attachGPRS(apn, user, pass) != GPRS_READY) {
+    Serial.println("Error attaching to GPRS");
     Serial.println(errortext);
   } else {
+    Serial.println("Attached to GPRS");
     Serial.println(oktext);
     int res_connect;
     res_connect = client.connect(url, 3000);
@@ -56,8 +64,5 @@ void setup() {
       }
     }
   }
-}
-
-void loop() {
-
+  delay(10000);
 }
